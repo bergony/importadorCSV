@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta charset="UTF-8" />
+	<title>Importador</title>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+
+<body>
+	<header>
+		<h:graphicImage library="css" name="logo.png" />
+	</header>
+
+	<p:growl id="messages" showDetail="true" />
+
+	<div class="card" style="padding-left: 30px">
+		<h5>Importar CSV</h5>
+		<h:form enctype="multipart/form-data">
+			<p:fileUpload value="#{importadorBean.file}" mode="simple"
+				label="Arquivo" skinSimple="true" allowTypes="/(\.|\/)(csv)$/"
+				invalidFileMessage="Arquivo inválido">
+			</p:fileUpload>
+			<br />
+			<p:commandButton style="margin-top: 10px;" value="Processar"
+				action="#{importadorBean.upload}"
+				styleClass="mt-3 ui-button-outlined block" validateClient="false"
+				process="@form" update="messages" />
+		</h:form>
+
+		<h:form enctype="multipart/form-data">
+			<p:commandButton style="margin-top: 10px;" value="Download do PDF" ajax="false"
+				styleClass="pt-3 ui-button-outlined block"
+				onclick="PrimeFaces.monitorDownload(start, stop);"
+				icon="ui-icon-arrowthick-1-s">
+				<p:fileDownload value="#{importadorBean.pdf}" />
+			</p:commandButton>
+		</h:form>
+	</div>
+</body>
+</html>
